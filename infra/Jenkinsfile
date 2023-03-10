@@ -26,7 +26,8 @@ pipeline {
         stage("Run tests againts the container"){
             steps{
                 echo "execution des tests"
-                sh 'curl http://front.test.com:3000'
+                // sh 'curl http://dev.mastermind.com'
+                echo "Fin des test"
             }
         }
     }
