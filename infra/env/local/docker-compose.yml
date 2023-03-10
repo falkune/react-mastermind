@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+
+  front:
+    build: 
+      context: ../../../
+      dockerfile: infra/build/Dockerfile
+    container_name: front
+    volumes:
+      - './:/app'
+      # - '/app/node_modules'
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    labels:
+      - traefik.http.routers.front.rule=Host(`dev.mastermind.com`)
+      # - traefik.http.services.front.loadbalancer.server.port=3000
+    ports:
+      - 3000:3000

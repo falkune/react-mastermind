@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+
+    stages {
+        stage("Cleaning any docker data"){
+            steps{
+                sh 'docker system prune -af --volumes'
+            }
+        }
+
+        stage('Build'){
+            steps{
+                echo "Build et Démarage de l'application"
+            }
+        }
+
+        stage("Start container"){
+            steps{
+                dir('/var/lib/jenkins/workspace/dev/infra/env/local'){
+                   sh 'docker compose up -d'
+                }
+                echo "Apllication Running"
+            }
+        }
+
+        stage("Run tests againts the container"){
+            steps{
+                echo "execution des tests"
+                sh 'curl http://front.test.com:3000'
+            }
+        }
+    }
+}
